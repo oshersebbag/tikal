@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# STAR WARS API CHALLENGE
+
+![Screenshot](https://github.com/oshersebbag/tikal/raw/main/Screenshot.png)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

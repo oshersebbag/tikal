@@ -1,0 +1,45 @@
+
+.task2_wrapper{
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.chart_wrapper{
+    width: calc(70% - 30px);
+    display: flex;
+    justify-content:space-between;
+    align-items: flex-end;
+}
+.planet_wrapper{
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+ 
+}
+.svg_wrapper{
+    width: 100%;
+    margin-bottom: 5px;
+}
+.mysvg{
+    width: 100%;
+}
+.population_wrapper{
+    margin-bottom: 10px;
+    font-weight: bold;
+
+}
+
+
+.chart_rect:hover {
+    fill: #b8890a;
+  }
+
+.log-msg{
+    margin: 30px 0;
+    letter-spacing: 2px;
+    font-size: 12px;
+}
