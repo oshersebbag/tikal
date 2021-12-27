@@ -7,7 +7,7 @@ function PopulationChart() {
     const REQUESTED_PLANETS = ["Tatooine", "Alderaan", "Naboo", "Bespin", "Endor"];
 
     const fetchPlanets = async () => {
-        let planets = await dataServices.getChartData(REQUESTED_PLANETS);
+        const planets = await dataServices.getChartData(REQUESTED_PLANETS);
         setData(planets);
     }
 

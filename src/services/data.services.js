@@ -1,18 +1,22 @@
 class DataService {
 
+    ///////////////////// services for the Top-Vehicle task (task No. 1) ///////////////////
+
+    // getting the combined data for all vehicles, sorting them by their sum population - and sending all the vehicles that has the highest sum of population
     getTopVehicle = async () => {
         const combinedData = await this.getCombinedData();
         combinedData.sort((a, b) => {
-            const keyA = a.sum_population,
-                keyB = b.sum_population;
+            const keyA = a.sumPopulation,
+                keyB = b.sumPopulation;
             if (keyA < keyB) return 1;
             if (keyA > keyB) return -1;
             return 0;
         });
 
-        return combinedData.filter((item) => item.sum_population >= combinedData[0].sum_population);
+        return combinedData.filter((item) => item.sumPopulation >= combinedData[0].sumPopulation);
     }
 
+    // fetching all the data from each category and creating the combined data
     getCombinedData = async () => {
         const [vehicles, pilots, planets] = await Promise.all([
             this.fetchByCategory("vehicles"),
@@ -23,7 +27,7 @@ class DataService {
         return combinedData;
     }
 
-
+    // getting all the data of a category - vehicles/people/planets
     fetchByCategory = async (category) => {
         let URL = "https://swapi.dev/api/" + category;
         const categoryData = [];
@@ -41,6 +45,9 @@ class DataService {
         return categoryData;
     }
 
+
+    // recieving the data from all 3 categories, getting a map obj with the URL key and the rspected info needed
+    // and creating the combined data with the info of the vehicle, pilots, planets and the sum of population
     createCombinedData(vehicles, pilots, planets) {
 
         const pilotsMap = this.mapDataByURL(pilots, ["name", "homeworld"]);
@@ -51,13 +58,15 @@ class DataService {
             vehicle.name = vehicles[i].name;
             vehicle.pilots = this.getPilots(vehicles[i].pilots, pilotsMap);
             vehicle.homeworldsInfo = this.getHomeworlds(vehicle.pilots, planetsMap);
-            vehicle.sum_population = this.getSum(vehicle.homeworldsInfo);
-            if (Number.isNaN(vehicle.sum_population)) { vehicle.sum_population = -1; }
+            vehicle.sumPopulation = this.getSum(vehicle.homeworldsInfo);
+            if (Number.isNaN(vehicle.sumPopulation)) { vehicle.sumPopulation = -1; }
             finalData.push(vehicle);
         }
         return finalData;
     }
 
+
+    // creates a map obj (used for planets and pilots - each needs different info so I used a "keys" array)
     mapDataByURL(items, keys) {
         const mappedData = {};
         if (items.length === 0) { return mappedData; }
@@ -72,7 +81,7 @@ class DataService {
         }
     }
 
-
+    // returning an array with the info we need on the pilots for the combined data 
     getPilots(pilots, map) {
         const res = [];
         pilots.forEach((pilot) => {
@@ -81,17 +90,23 @@ class DataService {
         return res;
     }
 
+    // returning an array with the info we need on the planets for the combined data 
     getHomeworlds(pilots, map) {
         const res = [];
         pilots.forEach((pilot) => res.push(map[pilot.homeworld]));
         return res;
     }
 
+    // returning the sum of population for the planets 
     getSum(planets) {
         return planets.reduce((total, planet) => total + parseInt(planet.population), 0);
 
     }
 
+    /////////////////// services for the Population-Chart task (task No. 2) /////////////////// 
+
+    // getting a list of planets and using the api search to recieve only these planets, sorting them 
+    // and sending them with their heights in log scale compared to the highest population amongst them
     getChartData = async (list) => {
         const planets = [];
         for (const planet of list) {
@@ -113,6 +128,7 @@ class DataService {
         return this.getHeight(planets);;
     }
 
+    //getting a sorted array of planets and adding a log-scaled height property(for the population chart)   
     getHeight = (planets) => {
         const myFixedheight = 250;
         const logMaxPopulation = Math.log10(parseInt(planets[0].population));

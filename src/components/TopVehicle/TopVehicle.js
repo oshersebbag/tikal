@@ -5,26 +5,26 @@ import dataServices from '../../services/data.services';
 function TopVehicle() {
   const [data, setData] = useState([]);
 
+  const getTopVehicle = async () => {
+    const topVehicle = await dataServices.getTopVehicle();
+    setData(topVehicle);
+  }
+
   useEffect(() => {
     getTopVehicle();
 
   }, []);
 
-  const getTopVehicle = async () => {
-    let topVehicle = await dataServices.getTopVehicle();
-    setData(topVehicle);
-  }
-
-
   function numberWithCommas(num) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
+
   return (
-    <div className="top_wrapper">
+    <div className="top_vehicle_wrapper">
       {data.length === 0 ?
         <div className="loader_wrapper"><div className="loader"></div></div>
         :
-        <div className="table_wrapper">
+        <div className="task1_wrapper">
           <div className="task_title">
             <div className="task-number">TASK1</div>
             <div className="task-description">Use the Star Wars API to find:<br />

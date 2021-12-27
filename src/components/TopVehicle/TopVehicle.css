@@ -2,7 +2,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
-}
+  }
 
 .loader {
     border: 8px solid #3f3f3f; /* Light grey */
@@ -14,7 +14,7 @@
     margin: 50px 0;
   }
 
-  .table_wrapper{
+  .task1_wrapper{
     width: 100%;
     padding: 2rem;
     display: flex;
@@ -38,8 +38,6 @@
     margin-right: 10px;
   }
  
-  
-
   .vehicle_table {  
     width: 70%;
     border: none;
@@ -58,14 +56,12 @@
     text-align: center;
     font-weight: bold;
     letter-spacing: 1px;
-    
   }
   
   th, td {
     border-radius: 5px;
     padding: 15px;
   }
-  
   
   @keyframes spin {
     0% { transform: rotate(0deg); }
